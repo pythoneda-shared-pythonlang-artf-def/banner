@@ -110,8 +110,8 @@
           in python.pkgs.buildPythonPackage rec {
             inherit pname version;
             projectDir = ./.;
-            pyprojectTemplateFile = ./pyprojecttoml.template;
-            pyprojectTemplate = pkgs.substituteAll {
+            pyprojectTomlTemplate = ./templates/pyproject.toml.template;
+            pyprojectToml = pkgs.substituteAll {
               authors = builtins.concatStringsSep ","
                 (map (item: ''"${item}"'') maintainers);
               desc = description;
@@ -129,7 +129,7 @@
                 pythoneda-shared-pythonlang-domain.version;
 
               package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
-              src = pyprojectTemplateFile;
+              src = pyprojectTomlTemplate;
             };
             bannerTemplateFile =
               "${pythoneda-shared-pythonlang-banner}/templates/banner.py.template";
@@ -185,7 +185,7 @@
               cp -r ${src} .
               sourceRoot=$(ls | grep -v env-vars)
               find $sourceRoot -type d -exec chmod 777 {} \;
-              cp ${pyprojectTemplate} $sourceRoot/pyproject.toml
+              cp ${pyprojectToml} $sourceRoot/pyproject.toml
               cp ${bannerTemplate} $sourceRoot/${banner_file}
               cp ${entrypointTemplate} $sourceRoot/entrypoint.sh
             '';
@@ -225,7 +225,7 @@
         apps = rec {
           default = pythoneda-shared-pythonlang-artf-banner-default;
           pythoneda-shared-pythonlang-artf-banner-default =
-            pythoneda-shared-pythonlang-artf-banner-python311;
+            pythoneda-shared-pythonlang-artf-banner-python312;
           pythoneda-shared-pythonlang-artf-banner-python38 = shared.app-for {
             package =
               self.packages.${system}.pythoneda-shared-pythonlang-artf-banner-python38;
@@ -246,13 +246,18 @@
               self.packages.${system}.pythoneda-shared-pythonlang-artf-banner-python311;
             inherit entrypoint;
           };
+          pythoneda-shared-pythonlang-artf-banner-python312 = shared.app-for {
+            package =
+              self.packages.${system}.pythoneda-shared-pythonlang-artf-banner-python312;
+            inherit entrypoint;
+          };
         };
         defaultApp = apps.default;
         defaultPackage = packages.default;
         devShells = rec {
           default = pythoneda-shared-pythonlang-artf-banner-default;
           pythoneda-shared-pythonlang-artf-banner-default =
-            pythoneda-shared-pythonlang-artf-banner-python311;
+            pythoneda-shared-pythonlang-artf-banner-python312;
           pythoneda-shared-pythonlang-artf-banner-python38 =
             shared.devShell-for {
               banner = "${
@@ -317,11 +322,27 @@
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
               inherit archRole layer org pkgs repo space;
             };
+          pythoneda-shared-pythonlang-artf-banner-python312 =
+            shared.devShell-for {
+              banner = "${
+                  pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312
+                }/bin/banner.sh";
+              extra-namespaces = "";
+              nixpkgs-release = nixpkgsRelease;
+              package =
+                packages.pythoneda-shared-pythonlang-artf-banner-python312;
+              python = pkgs.python312;
+              pythoneda-shared-pythonlang-banner =
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
+              pythoneda-shared-pythonlang-domain =
+                pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
+              inherit archRole layer org pkgs repo space;
+            };
         };
         packages = rec {
           default = pythoneda-shared-pythonlang-artf-banner-default;
           pythoneda-shared-pythonlang-artf-banner-default =
-            pythoneda-shared-pythonlang-artf-banner-python311;
+            pythoneda-shared-pythonlang-artf-banner-python312;
           pythoneda-shared-pythonlang-artf-banner-python38 =
             pythoneda-shared-pythonlang-artf-banner-for {
               python = pkgs.python38;
@@ -377,6 +398,20 @@
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
+            };
+          pythoneda-shared-pythonlang-artf-banner-python312 =
+            pythoneda-shared-pythonlang-artf-banner-for {
+              python = pkgs.python312;
+              pythoneda-external-artf-flakeutils =
+                pythoneda-external-artf-flakeutils.packages.${system}.pythoneda-external-artf-flakeutils-python312;
+              pythoneda-external-artf-nixpkgs =
+                pythoneda-external-artf-nixpkgs.packages.${system}.pythoneda-external-artf-nixpkgs-python312;
+              pythoneda-shared-nix-flake-shared =
+                pythoneda-shared-nix-flake-shared.packages.${system}.pythoneda-shared-nix-flake-shared-python312;
+              pythoneda-shared-pythonlang-banner =
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
+              pythoneda-shared-pythonlang-domain =
+                pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python312;
             };
         };
       });
