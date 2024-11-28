@@ -26,7 +26,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-external-artf-def/flakeutils/0.0.6";
+      url = "github:pythoneda-external-artf-def/flakeutils/0.0.7";
     };
     pythoneda-external-artf-nixpkgs = {
       inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +37,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-external-artf-def/nixpkgs/0.0.5";
+      url = "github:pythoneda-external-artf-def/nixpkgs/0.0.6";
     };
     pythoneda-shared-nix-flake-shared = {
       inputs.flake-utils.follows = "flake-utils";
@@ -46,19 +46,19 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-shared-nix-flake-def/shared/0.0.63";
+      url = "github:pythoneda-shared-nix-flake-def/shared/0.0.72";
     };
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.62";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.70";
     };
     pythoneda-shared-pythonlang-domain = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
-      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.75";
+      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.88";
     };
   };
   outputs = inputs:
@@ -73,8 +73,8 @@
       let
         org = "pythoneda-shared-pythonlang-artf";
         repo = "banner";
-        version = "0.0.0";
-        sha256 = "0jq5b67zphcsh9g28rax2mkciilybsr6sphbdr21fnrrsbvq85ms";
+        version = "0.0.2";
+        sha256 = "1g3wvxxqp7k8g9wqspas6qhvf76bjp8j3ihpx3hd52x4c2aj3wd5";
         pname = "${org}-${repo}";
         pythonpackage = "pythoneda.artifact.shared.banner";
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
