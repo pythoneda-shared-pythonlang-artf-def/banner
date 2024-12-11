@@ -16,10 +16,10 @@
   description = "Artifact for pythoneda-shared-pythonlang/banner";
   inputs = rec {
     flake-utils = { url = "github:numtide/flake-utils/v1.0.0"; };
-    nixos = { url = "github:NixOS/nixpkgs/24.05"; };
+    nixpkgs = { url = "github:NixOS/nixpkgs/24.05"; };
     pythoneda-external-artf-flakeutils = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.pythoneda-shared-nix-flake-shared.follows =
         "pythoneda-shared-nix-flake-shared";
       inputs.pythoneda-shared-pythonlang-banner.follows =
@@ -30,7 +30,7 @@
     };
     pythoneda-external-artf-nixpkgs = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.pythoneda-shared-nix-flake-shared.follows =
         "pythoneda-shared-nix-flake-shared";
       inputs.pythoneda-shared-pythonlang-banner.follows =
@@ -41,7 +41,7 @@
     };
     pythoneda-shared-nix-flake-shared = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
@@ -50,12 +50,12 @@
     };
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:pythoneda-shared-pythonlang-def/banner/0.0.70";
     };
     pythoneda-shared-pythonlang-domain = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
       url = "github:pythoneda-shared-pythonlang-def/domain/0.0.88";
@@ -86,11 +86,11 @@
         archRole = "B";
         space = "D";
         layer = "D";
-        nixosVersion = builtins.readFile "${nixos}/.version";
+        nixpkgsVersion = builtins.readFile "${nixpkgs}/.version";
         nixpkgsRelease =
-          builtins.replaceStrings [ "\n" ] [ "" ] "nixos-${nixosVersion}";
+          builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
         shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         pythoneda-shared-pythonlang-artf-banner-for = { python
           , pythoneda-external-artf-flakeutils, pythoneda-external-artf-nixpkgs
           , pythoneda-shared-nix-flake-shared
