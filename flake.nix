@@ -26,7 +26,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-external-artf-def/flakeutils/0.0.7";
+      url = "github:pythoneda-external-artf-def/flakeutils/0.0.17";
     };
     pythoneda-external-artf-nixpkgs = {
       inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +37,7 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-external-artf-def/nixpkgs/0.0.6";
+      url = "github:pythoneda-external-artf-def/nixpkgs/0.0.15";
     };
     pythoneda-shared-nix-flake-shared = {
       inputs.flake-utils.follows = "flake-utils";
@@ -46,19 +46,19 @@
         "pythoneda-shared-pythonlang-banner";
       inputs.pythoneda-shared-pythonlang-domain.follows =
         "pythoneda-shared-pythonlang-domain";
-      url = "github:pythoneda-shared-nix-flake-def/shared/0.0.72";
+      url = "github:pythoneda-shared-nix-flake-def/shared/0.0.82";
     };
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.70";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.74";
     };
     pythoneda-shared-pythonlang-domain = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
-      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.88";
+      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.101";
     };
   };
   outputs = inputs:
@@ -127,8 +127,6 @@
                 pythoneda-shared-pythonlang-banner.version;
               pythonedaSharedPythonlangDomain =
                 pythoneda-shared-pythonlang-domain.version;
-
-              package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
               src = pyprojectTomlTemplate;
             };
             bannerTemplateFile =
